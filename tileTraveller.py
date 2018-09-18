@@ -36,9 +36,19 @@ direction = 1
 # Grid
 x1, x2, x3, y1, y2, y3 = 1, 2, 3, 1, 2, 3
 pos_x, pos_y = x1, y1
+north = "(N)orth."
+south = "(S)outh."
+east = "(E)ast."
+west = "(W est."
+
+# walls
 
 while direction != "":
-    direction = input("You can travel: ").lower()
+
+    # Kannar veggi
+    compass = north
+    print("You can travel:", compass)
+    direction = input("Direction: ").lower()
 
     #mover(direction):
     if (direction == "n") and (pos_y < 3):
@@ -52,4 +62,12 @@ while direction != "":
     else:
         print("Not a valid direction")
     
-    print("Debug Log: ", pos_x, pos_y)
+    # walls()
+
+
+
+    print("Debug Log: Loc:", pos_x, pos_y, "Direction: ", direction)
+    # victory(x, y):
+    if pos_x == x3 and pos_y == y1:
+        print("Victory!")
+        break
