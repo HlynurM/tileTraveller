@@ -1,15 +1,3 @@
-""" með tvo int: char_x og char_y sem tilgreinir hvar character er
-    if( x og y) þá hvað: m.v. aðstæður á hverjum stað fyrir sig
-    þegar character nær inn í 3.1 þá victory
-    í hverri loopu skrifast út status update, you can travel: 
-    (set upp git)
-    (N)orth
-    (S)outh
-    (W)est
-    (E)ast
-    """
-
-#Upphafsstaða - í room1_1
 char_x, char_y = 1, 1
 path = ""
 valid_direction = 'n'
@@ -62,15 +50,3 @@ while 1:
     elif char_x == 3 and char_y == 1: path = room3_1; print("Victory!"); break
     elif char_x == 3 and char_y == 2: path = room3_2; valid_direction = 'ns'
     elif char_x == 3 and char_y == 3: path = room3_3; valid_direction = 'ws'
-    
-# for x,y in :
-#     if char_x == x and char_y == y: 
-#         path = what_room(x,y)
-#         valid_direction = 
-
-    # if 'e' in walls:
-    #     char_x -= 1
-    #     print("Not a valid direction!")
-    
-
-    # print("Current location",char_x, char_y)
