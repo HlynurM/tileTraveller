@@ -1,73 +1,70 @@
-# Hlynur Magnus Magnusson
-# Hlynurm18@ru.is
-# Assignment 8:  tileTraveller
-# https://github.com/HlynurM/tileTraveller.git
+""" með tvo int: char_x og char_y sem tilgreinir hvar character er
+    if( x og y) þá hvað: m.v. aðstæður á hverjum stað fyrir sig
+    þegar character nær inn í 3.1 þá victory
+    í hverri loopu skrifast út status update, you can travel: 
+    (set upp git)
+    (N)orth
+    (S)outh
+    (W)est
+    (E)ast
+    """
 
 
-# Setja upp fall sem vinnur ur key input
-# Fall sem tekur key input og setur inn i mover(x,y)
-# Fall sem athugar hvort veggir seu til stadar
-# Fall sem prentar ut villuskilabod ef leid er lokud 
-#               print("Not a valid direction")
-# Setja upp fall sem init_fall() sem setur upp hluti i byrjun
-# Fall sem keyrir adal luppu start() fall
+
+#Upphafsstaða - í room1_1
+char_x, char_y = 1, 1
+path = ""
+valid_direction = 'n'
+
+#Rooms fall
+#compass byrjun
+north = "(N)orth"
+east = "(E)ast"
+south = "(S)outh"
+west = "(W)est"
+
+room1_1 = "(N)orth"; room1_2 = "(N)orth, (E)ast, (S)outh"; room1_3 = "(S)outh, (E)ast"
+room2_1 = "(N)orth"; room2_2 = "(W)est, (S)outh"; room2_3 = "(E)ast, (W)est"
+room3_1 = "(N)orth"; room3_2 = "(N)orth, (S)outh"; room3_3 = "(S)outh"
+path = room1_1
 
 
-# Algorithmi fyrir fyrsta hlutann
-
-# Setja upp grid med tvofaldri for lykkju fyrir hnit x, y
-#       x1, x2, x3, y1, y2, y3 = 1, 2, 3, 1, 2, 3
-#       Tharf ad setja upp grid? Er nog ad tekka fyrir hverja hreyfingu hvort x, y se inni i grid moguleikum
-# Setja inn upphafs punkt x1, y1
-# Setja inn loka punkt x3, y1
-# Skilgreina veggi
-# Skilgreina leyfileg directions
-
-# taka inn input um direction
-# setja direction i lower()
-
-# mover(direction)
-# Ef nordur: y += 1, sudur: y -=1
-# Ef austur: x += 1, vestur: -=1
-
-
-# Setja upp
-direction = 1
-# Grid
-x1, x2, x3, y1, y2, y3 = 1, 2, 3, 1, 2, 3
-pos_x, pos_y = x1, y1
-north = "(N)orth."
-south = "(S)outh."
-east = "(E)ast."
-west = "(W est."
-
-# walls
-
-while direction != "":
-
-    # Kannar veggi
-    compass = north
-    print("You can travel:", compass)
-    direction = input("Direction: ").lower()
-
-    #mover(direction):
-    if (direction == "n") and (pos_y < 3):
-        pos_y += 1
-    elif (direction == "s" )and (1 < pos_y):
-        pos_y -= 1
-    elif (direction == "e") and (pos_x < 3):
-        pos_x += 1
-    elif (direction == "w") and (1 < pos_x):
-        pos_x -= 1
-    else:
-        print("Not a valid direction")
+while 1:
     
-    # walls()
+    print("You can travel: " + path)
+    path = ''
+    direction = input("Direction: ").lower()
+    
+#dir mover(direction):
+
+    if (direction == 'n') and ('n' in valid_direction):
+        char_y += 1
+    elif (direction == 's') and ('s' in valid_direction):
+        char_y -= 1
+    elif (direction == 'e') and ('e' in valid_direction):
+        char_x += 1
+    elif (direction == 'w') and ('w' in valid_direction):
+        char_x -= 1
+    else:
+        print("Not a valid direction!")
+        # return char_x, char_y
+
+#dir veggir():
 
 
+    if char_x == 1 and char_y == 1: path = room1_1; valid_direction = 'n'
+    elif char_x == 1 and char_y == 2: path = room1_2; valid_direction = 'nes'
+    elif char_x == 1 and char_y == 3: path = room1_3; valid_direction = 'es'
+    elif char_x == 2 and char_y == 1: path = room2_1; valid_direction = 'n'
+    elif char_x == 2 and char_y == 2: path = room2_2; valid_direction = 'ws'
+    elif char_x == 2 and char_y == 3: path = room2_3; valid_direction = 'we'
+    elif char_x == 3 and char_y == 1: path = room3_1; print("Victory!"); break
+    elif char_x == 3 and char_y == 2: path = room3_2; valid_direction = 'ns'
+    elif char_x == 3 and char_y == 3: path = room3_3; valid_direction = 'ws'
+    
+    # if 'e' in walls:
+    #     char_x -= 1
+    #     print("Not a valid direction!")
+    
 
-    print("Debug Log: Loc:", pos_x, pos_y, "Direction: ", direction)
-    # victory(x, y):
-    if pos_x == x3 and pos_y == y1:
-        print("Victory!")
-        break
+    # print("Current location",char_x, char_y)
