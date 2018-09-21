@@ -10,37 +10,37 @@ n, s, e, w = 1, -1, 1, -1
 # Tekur inn x, y og skilar ut mogulegar leidir
 def current_tile(x_hnit, y_hnit):
     """Skilar ut mogulegar attir midad vid nuverandi hnit; 
-    direction_map, possible_input_key"""
+    direction_map, valid_inputs"""
     victory = False
     if x_hnit == 1 and y_hnit == 1:     # 1,1
         direction_map = "(N)orth."
-        possible_input_key = 'n'
+        valid_inputs = 'n'
     elif x_hnit == 1 and y_hnit == 2:   # 1,2
         direction_map = "(N)orth or (E)ast or (S)outh."
-        possible_input_key = 'nes'
+        valid_inputs = 'nes'
     elif x_hnit == 1 and y_hnit == 3:   # 1,3
         direction_map = "(E)ast or (S)outh."
-        possible_input_key = 'es'
+        valid_inputs = 'es'
     elif x_hnit == 2 and y_hnit == 1:   # 2,1
         direction_map = "(N)orth."
-        possible_input_key = 'n'
+        valid_inputs = 'n'
     elif x_hnit == 2 and y_hnit == 2:   # 2,2
         direction_map = "(S)outh or (W)est."
-        possible_input_key = 'sw'
+        valid_inputs = 'sw'
     elif x_hnit == 2 and y_hnit == 3:   # 2,3
         direction_map = "(E)ast or (W)est."
-        possible_input_key = 'ew'
+        valid_inputs = 'ew'
     elif x_hnit == 3 and y_hnit == 1:   # 3,1 Victory
         direction_map = "(N)orth."
-        possible_input_key = 'n'
+        valid_inputs = 'n'
         victory = True
     elif x_hnit == 3 and y_hnit == 2:   # 3,2
         direction_map = "(N)orth or (S)outh."
-        possible_input_key = 'ns'
+        valid_inputs = 'ns'
     elif x_hnit == 3 and y_hnit == 3:   # 3,3
         direction_map = "(S)outh or (W)est."
-        possible_input_key = 'sw'
-    return direction_map, possible_input_key, victory
+        valid_inputs = 'sw'
+    return direction_map, valid_inputs, victory
 
 def dir_error():
     """Calls out invalid moves"""
@@ -59,9 +59,13 @@ def mover(my_dir, valid_direction, x, y):
         dir_error()
     return x, y
 
-def input_key():
+def input_key(valid_direction):
     """Returns keystroke input: lower case"""
     direction = input("Direction: ").lower()
+    # Asks until correct input is given
+    while direction not in valid_direction:
+        dir_error()
+        direction = input("Direction: ").lower()
     return direction
 
 def travel_guide(map, victory):
@@ -74,7 +78,7 @@ def travel_guide(map, victory):
 # Start the dungeon crawler!
 while 1:
     # What tile is player on currently
-    direction_map, possible_key_input, victory = current_tile(pos_x, pos_y)
+    direction_map, valid_inputs, victory = current_tile(pos_x, pos_y)
 
     # Where can I travel
     travel_guide(direction_map, victory)
@@ -82,7 +86,7 @@ while 1:
         break
 
     # What is my direction choice
-    direction = input_key()
+    direction = input_key(valid_inputs)
 
     # Update x, y coordinates to move character based on possible moves.
-    pos_x, pos_y = mover(direction, possible_key_input, pos_x, pos_y)
+    pos_x, pos_y = mover(direction, valid_inputs, pos_x, pos_y)
